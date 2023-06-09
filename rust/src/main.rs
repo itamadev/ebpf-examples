@@ -23,8 +23,8 @@ fn main() {
 
     // Attach the program to the network interface
     let ifindex = bpf_get_link_ifindex_by_name(b"eth0\0".as_ptr() as *const _);
-    let attach_type = BPF_XDP_ATTACH_MODE_SKB_MODE as u32;
-    let ret = unsafe { bpf_set_link_xdp_fd(ifindex, prog_fd, attach_type) };
+    let attach_mode = BPF_XDP_ATTACH_MODE_SKB_MODE as u32;
+    let ret = unsafe { bpf_set_link_xdp_fd(ifindex, prog_fd, attach_mode) };
 
     if ret != 0 {
         panic!("Failed to attach eBPF program to interface");
@@ -42,6 +42,6 @@ fn main() {
 
     // Detach the program when the process exits
     unsafe {
-        bpf_set_link_xdp_fd(ifindex, -1, attach_type);
+        bpf_set_link_xdp_fd(ifindex, -1, attach_mode);
     }
 }
