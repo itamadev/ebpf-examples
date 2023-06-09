@@ -7,3 +7,4 @@ edition = "2023"
 
 [dependencies]
 bpf-sys = "2.3.0"
+rebpf = "0.1.5"
